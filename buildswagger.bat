@@ -1,3 +1,3 @@
-php swagger.phar C:\workspaces\phpworkspace\antispite-web -o C:\workspaces\phpworkspace\antispite-web\public\doc
+php swagger.phar C:\workspaces\phpworkspace\jrf-attorney-web -o C:\workspaces\phpworkspace\jrf-attorney-web\public\doc
 del public\doc\index.php
 pause

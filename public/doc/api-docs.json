@@ -1,0 +1,14 @@
+{
+    "apiVersion":"1.0",
+    "swaggerVersion":"1.2",
+    "apis":[
+        {
+            "path":"/lawyer.{format}",
+            "description":"\u65b0\u5f8b\u5e2b\u8a3b\u518a\uff0c\u901a\u904e\u5f8c\u6703\u62ff\u5230\u4e00\u500b\u6c38\u4e45\u7684 token (sid)\u3002 "
+        },
+        {
+            "path":"/url.{format}",
+            "description":"\u53d6\u5f97\u6240\u6709\u8df3\u91dd\u76f8\u95dc\u7db2\u5740\u5217\u8868"
+        }
+    ]
+}

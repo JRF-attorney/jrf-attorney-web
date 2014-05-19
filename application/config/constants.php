@@ -37,5 +37,12 @@ define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 
+define('API_ERROR_PARAMETER_INVALID',402);
+define('API_ERROR_ACCESS_TOKEN_INVALID',403);
+
+define('API_ERROR_UNKNOWN',500);
+
+
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

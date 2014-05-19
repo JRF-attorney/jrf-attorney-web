@@ -1,0 +1,63 @@
+{
+    "basePath":"http://localhost/jrf-attorney-web/index.php/api/lawyer/",
+    "swaggerVersion":"1.2",
+    "apiVersion":"1.0",
+    "resourcePath":"/lawyer",
+    "apis":[
+        {
+            "path":"/register",
+            "description":"\u65b0\u5f8b\u5e2b\u8a3b\u518a\uff0c\u901a\u904e\u5f8c\u6703\u62ff\u5230\u4e00\u500b\u6c38\u4e45\u7684 token (sid)\u3002 ",
+            "operations":[
+                {
+                    "method":"POST",
+                    "summary":"",
+                    "nickname":"register",
+                    "parameters":[
+                        {
+                            "paramType":"form",
+                            "name":"name",
+                            "type":"string",
+                            "required":true,
+                            "description":"\u5f8b\u5e2b\u540d\u5b57\uff08\u672c\u540d\uff09"
+                        },
+                        {
+                            "paramType":"form",
+                            "name":"phone",
+                            "type":"string",
+                            "required":true,
+                            "description":"\u5f8b\u5e2b\u96fb\u8a71"
+                        },
+                        {
+                            "paramType":"form",
+                            "name":"areas",
+                            "type":"string",
+                            "required":true,
+                            "description":"\u53ef\u966a\u5075\u5340\u57df(json array),ex. ['\u57fa\u9686\u5f8b\u5e2b\u516c\u6703','\u53f0\u5317\u5f8b\u5e2b\u516c\u6703'] "
+                        },
+                        {
+                            "paramType":"form",
+                            "name":"email",
+                            "type":"string",
+                            "required":true,
+                            "description":"Email"
+                        },
+                        {
+                            "paramType":"form",
+                            "name":"authType",
+                            "type":"string",
+                            "required":true,
+                            "description":"\u767b\u5165\u8cc7\u6599\uff08\u76ee\u524d\u63a5\u53d7 'FB' \u8ddf 'Google' \u5169\u500b\u503c \uff09"
+                        },
+                        {
+                            "paramType":"form",
+                            "name":"authToken",
+                            "type":"string",
+                            "required":true,
+                            "description":"\u767b\u5165\u8cc7\u6599\u4e2d Google or Facebook \u7684 access token (\u7531 android/iOS \u9810\u5148\u8a8d\u8b49\u597d\u4e1f\u4e0a\u4f86) "
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

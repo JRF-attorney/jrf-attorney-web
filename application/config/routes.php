@@ -41,6 +41,11 @@
 $route['default_controller'] = "welcome";
 $route['404_override'] = '';
 
+/* backend alias*/
+$route["backadmin"] ="backadmin/user/index";
+$route["backadmin/login"] ="backadmin/user/login";
+$route["backadmin/logout"] ="backadmin/user/logout";
+$route["backadmin/logining"] ="backadmin/user/logining";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
