@@ -42,6 +42,13 @@ class Lawyer extends MY_API_Controller {
 	 *           type="string"
 	 *         ),
 	 *         @SWG\Parameter(
+ *          	name="identify",
+ *           	description="律師證號",
+ *           	paramType="form",
+	 *           required=true,
+	 *           type="string"
+	 *         ),
+	 *         @SWG\Parameter(
 	 *          	name="email",
 	 *           	description="Email",
 	 *           	paramType="form",
@@ -61,6 +68,13 @@ class Lawyer extends MY_API_Controller {
 	 *           	paramType="form",
 	 *           required=true,
 	 *           type="string"
+	 *         ),
+	 *         @SWG\Parameter(
+	 *          	name="line",
+	 *           	description="line ID (選填)",
+	 *           	paramType="form",
+	 *           required=false,
+	 *           type="string"
 	 *         )
 	 *      )
 	 *   
@@ -72,7 +86,7 @@ class Lawyer extends MY_API_Controller {
 		
 		$this->load->model("lawyerModel");
 
-		$fields = Array("name","phone","areas","email","authType","authToken");
+		$fields = Array("name","phone","areas","email","identify","authType","authToken");
 
 		$data = Array();
 		foreach($fields as $key){
@@ -80,6 +94,10 @@ class Lawyer extends MY_API_Controller {
 				return $this->return_error(API_ERROR_PARAMETER_INVALID, "Expected parameter [".$key."] but missed.");
 			}
 			$data[$key] = $_POST[$key];
+		}
+		
+		if(isset($_POST["line"])){ //optional
+			$data["line"] = $_POST["line"];
 		}
 		
 		if($data["authType"] != "FB" && $data["authType"] == "Google"){
@@ -107,7 +125,6 @@ class Lawyer extends MY_API_Controller {
 			
 				$auth["uid"] = $fbinfo->id;
 				$auth["info"] = $fbinfo;
-				
 			
 			}catch(Exception $ex){
 				return $this->return_error(API_ERROR_ACCESS_TOKEN_INVALID, "authToken auth failed");
@@ -119,6 +136,7 @@ class Lawyer extends MY_API_Controller {
 		$data["auths"] = Array($auth);
 		$access_token = uniqid("jrf",true);
 		$data["access_tokens"] = Array($access_token);
+		$data["enabled"] = false;
 		$success = $this->lawyerModel->insert($data);
 		
 		if(!$success){

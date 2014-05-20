@@ -13,13 +13,12 @@ class LawyerModel extends MONGO_MODEL {
 	// 
 	
 	
-	public function insert($datas = null){
-		if($datas == null){
+	public function insert($data = null){
+		if($data == null){
 			return false;
 		}
-		$datas["enabled"] = false;
-		$datas["createDate"] = time() *1000.0;
-		$this->mongo_db->insert($this->_collection,$datas);
+		$data["createDate"] = time() *1000.0;
+		$this->mongo_db->insert($this->_collection,$data);
 
 		return true;
 	}

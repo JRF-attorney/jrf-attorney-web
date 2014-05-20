@@ -209,3 +209,18 @@ class ReturnMessage{
 		$this->data = $data;
 	}
 }
+
+class FormObject{
+	var $data;
+	public function __construct($data = Array()){
+		$this->data = $data;
+	}
+
+	public function __get($prop){
+		if(isset($this->data[$prop])){
+			return $this->data[$prop];
+		}else{
+			return "";
+		}
+	}
+}

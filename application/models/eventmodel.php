@@ -15,6 +15,10 @@ class EventModel extends MONGO_MODEL {
 		
 	}
 	
+	function insert($data){
+		
+	}
+	
 // 	姓名
 // 	電話
 // 	逮捕原因（案由）
