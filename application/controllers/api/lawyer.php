@@ -12,6 +12,11 @@
 */
 class Lawyer extends MY_API_Controller {
 
+	
+	public function login(){
+		
+	}
+	
 	/**
 	 *
 	 * @SWG\Api(
@@ -126,6 +131,66 @@ class Lawyer extends MY_API_Controller {
 		}
 		return $this->return_success_json($access_token);
 		
+	}
+	
+	
+	public function getAttorneyInfos($status = null){
+		session_write_close();
+		$this->load->model("lawyerModel");
+		
+		$statusEnum = Array("pending" => 0,"offline" => 1,"online" => 2);
+		
+		$filter = null;
+		if(isset($statusEnum[$status])){
+			$filter = $statusEnum[$status];
+		}
+		
+		$layers = $this->lawyerModel->find_laywers($filter);
+			
+		return $this->return_success_json($layers);
+		
+	}
+	
+	public function getAttorney($id){
+		session_write_close();
+		$this->load->model("lawyerModel");
+		
+		//$statusEnum = Array("pending" => 0,"offline" => 1,"online" => 2);
+		
+		/*
+		$filter = null;
+		if(isset($statusEnum[$status])){
+			$filter = $statusEnum[$status];
+		}
+		*/
+		
+		$layer = $this->lawyerModel->find_laywer($id);
+			
+		return $this->return_success_json($layer);
+	}
+	
+	public function insert_lawyer(){
+		$this->load->model("lawyerModel");
+		 /* name (String/ 律師名字（本名） ) ,
+		phone_daily (String/律師電話)
+		phone_night (String/律師電話)
+		cellphone_daily(String/律師電話)
+		cellphone_night(String/律師電話)
+		areas (Array[String], 可陪偵區域(json array),ex. ['基隆律師公會','台北律師公會']  )
+		Email (String/Email)
+		authType (enum("FB","Google"),登入類別（目前接受 'FB' 跟 'Google' 兩個值 ） )
+		authToken (登入資料中 Google or Facebook 的 access token (由 android/iOS 預先認證好丟上來) )
+		out
+		*/
+		$this->lawyerModel->insert(Array("name" => "test",
+				"cellphone" => "0975772843" ,
+				"locations" => Array("基隆市","台北市"),
+				"associations" => Array("基隆律師公會","台北律師公會"),
+				"email" => "tonylovejava@gmail.com",
+				"auth" => Array("type" => "FB", "UID" => 123456),
+				"license" => "測試用律師證號",
+				"numCases" => 0
+		));
 	}
 	
 	public function bind_device(){

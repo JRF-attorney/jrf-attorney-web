@@ -9,7 +9,7 @@ class LawyerModel extends MONGO_MODEL {
 	}
 	
 	//Fields:姓名、電話、可陪偵區域、律師證號（等等等，待司改會提供完整資料）
-	// name,phone,areas,identify,email,auth:{type,uid}
+	// name,phone,areas,identify,email,auth:{type,uid,identify}
 	// 
 	
 	
@@ -17,21 +17,47 @@ class LawyerModel extends MONGO_MODEL {
 		if($datas == null){
 			return false;
 		}
-		$datas["enabled"] = false;
+		$datas["status"] = 0;
 		$datas["createDate"] = time() *1000.0;
 		$this->mongo_db->insert($this->_collection,$datas);
 
 		return true;
 	}
 	
-	public function find_valid_user($account,$pwd){
-		$users= $this->mongo_db->where(Array("enabled" => true,"account"=> $account,"password" => sha1($pwd)))->get($this->_collection);
+	public function find_laywers($status = null){
+
+		//$users = $this->mongo_db->where()->get($this->_collection);
+		if($status == null){
+			$users = $this->mongo_db->get($this->_collection);
+		}else{
+			$users = $this->mongo_db->where(Array("status" => $status))->get($this->_collection);
+		}
+
+		$users = $this->convertIDs($users);
 		
+		return $users;
+		
+	}
+
+	public function find_laywer($id){
+	
+		//$users = $this->mongo_db->where()->get($this->_collection);
+		$users = $this->convertIDs($this->mongo_db->where(Array("_id" => new MongoId($id)))->get($this->_collection));
+
 		if(count($users) == 0 || count($users) > 1){
 			return null;
 		}
 		return $users[0];
-		
+	
 	}
+	
 
+	private function convertIDs($datas){
+		foreach ($datas as &$user){
+			$field = "\$id";
+			$user["id"] = $user["_id"]->$field;
+			unset($user["_id"]);
+		}
+		return $datas;
+	}
 }
