@@ -91,6 +91,8 @@ class Lawyer extends MY_API_Controller {
 		
 		$this->load->model("lawyerModel");
 
+		
+		
 		$fields = Array("name","phone","areas","email","identify","authType","authToken");
 
 		$data = Array();
@@ -153,6 +155,8 @@ class Lawyer extends MY_API_Controller {
 	
 	
 	public function getAttorneyInfos($status = null){
+		header('Content-Type: application/json');
+		header('Access-Control-Allow-Origin: *');
 		session_write_close();
 		$this->load->model("lawyerModel");
 		
@@ -170,6 +174,8 @@ class Lawyer extends MY_API_Controller {
 	}
 	
 	public function getAttorney($id){
+		header('Content-Type: application/json');
+		header('Access-Control-Allow-Origin: *');
 		session_write_close();
 		$this->load->model("lawyerModel");
 		
@@ -185,6 +191,44 @@ class Lawyer extends MY_API_Controller {
 		$layer = $this->lawyerModel->find_laywer($id);
 			
 		return $this->return_success_json($layer);
+	}
+	
+	public function getCaseInfos($status = null){
+		header('Content-Type: application/json');
+		header('Access-Control-Allow-Origin: *');
+		//PENDING | MATCHED | IN_PROGRESS | CLOSED
+		$statusEnum = Array("pending" => 0,"matched" => 1,"in_progress" => 2, "closed" => 3);
+
+		
+		$this->load->model("caseModel");
+		
+		$cases = $this->caseModel->find_cases();
+		
+		return $this->return_success_json($cases);
+		
+		/*
+		@param {number=} opt_limit
+		@param {number=} opt_offset
+		@return Array.<CaseInfo: {caseID: 'id', time: 'time', name: 'name', cell: '0912345678', location: '縣市',  status: PENDING | MATCHED | IN_PROGRESS | CLOSED, attorney: '接案律師'}>
+		*/
+	}
+	
+	public function getCase($caseID){
+		header('Content-Type: application/json');
+		header('Access-Control-Allow-Origin: *');
+		//PENDING | MATCHED | IN_PROGRESS | CLOSED
+		$statusEnum = Array("pending" => 0,"matched" => 1,"in_progress" => 2, "closed" => 3);
+	
+		$this->load->model("caseModel");
+		$cases = $this->caseModel->find_cases();
+	
+		return $this->return_success_json($cases);
+	
+		/*
+			@param {number=} opt_limit
+		@param {number=} opt_offset
+		@return Array.<CaseInfo: {caseID: 'id', time: 'time', name: 'name', cell: '0912345678', location: '縣市',  status: PENDING | MATCHED | IN_PROGRESS | CLOSED, attorney: '接案律師'}>
+		*/
 	}
 	
 	public function insert_lawyer(){
@@ -209,6 +253,31 @@ class Lawyer extends MY_API_Controller {
 				"license" => "測試用律師證號",
 				"numCases" => 0
 		));
+	}
+	
+	public function insert_case(){
+		
+
+		$this->load->model("caseModel");
+		$this->load->model("lawyerModel");
+		
+		//{caseID: 'id', time: 'time', name: 'name', cell: '0912345678', 
+		// location: '縣市',  status: PENDING | MATCHED | IN_PROGRESS | CLOSED, 
+		// attorney: '接案律師'}
+		
+		$lawyers =  $this->lawyerModel->find_laywers();
+		
+		$this->caseModel->insert(Array(
+				"eventtime" => time() * 1000.0 ,
+				"name" => "王景弘", 
+				"cellphone" => "0975772843",
+				"location" => "台北市",
+				"status" => 0,
+				"attorney" => $lawyers[0]["id"],
+				"createDate" => time() * 1000.0 
+		));
+		
+		//$this->lawyerModel->insert();
 	}
 	
 	public function bind_device(){

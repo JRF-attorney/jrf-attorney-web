@@ -9,9 +9,9 @@ class  MY_Controller  extends  CI_Controller  {
 	var $lawyerModel; //LawyerModel
 	
 	/**
-	 * @var EventModel
+	 * @var CaseModel
 	 */
-	var $eventModel;//EventModel
+	var $caseModel;//CaseModel
 	
 	public function __construct(){
 		parent::__construct();
