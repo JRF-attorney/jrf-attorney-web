@@ -5,6 +5,7 @@
 		<ul class="nav nav-tabs">
 		</ul>
 
+		<a class="btn btn-default" href="<?=site_url("backadmin/event/new_")?>">新增案件</a>
 		<div class="tab-content">
 			<div class="tab-pane" style="display:block;padding:20px;">
 				<table class="table table-bordered text-center" style="width:800px;">

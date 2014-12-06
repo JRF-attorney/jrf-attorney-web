@@ -20,10 +20,6 @@
     <!-- Bootstrap core CSS -->
     <!--<link href="<?=base_url("css/bootstrap.css")?>" rel="stylesheet">-->
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Add custom CSS here -->
-    <link href="<?=base_url("css/stylish-admin.css")?>" rel="stylesheet">
-    <link href="<?=base_url("font-awesome/css/font-awesome.min.css")?>" rel="stylesheet">
     
     	<?php
 	if(function_exists("css_section")){
